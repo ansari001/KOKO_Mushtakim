@@ -80,6 +80,8 @@ class Field extends LinearLayout {
                     } else {
                         mole.stopHopping();
                         listener.onGameEnded(score);
+                        resetCircles();
+                        setActive(view.getTag(ACTIVE_TAG_KEY));
                     }
                 }
             });
