@@ -13,6 +13,7 @@ class Mole {
     private long startTimeForLevel;
     private final int[] LEVELS = new int[]{1000,900,800,700,600,500,400,300,200,100};
     private final long LEVEL_DURATION_MS = 10000;
+    private  int counter=0;
 
     ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
     ScheduledFuture<?> future;
@@ -27,10 +28,16 @@ class Mole {
 
         future = scheduledExecutorService.scheduleAtFixedRate(() -> {
             field.setActive(nextHole());
-
-
-            if(System.currentTimeMillis()-startTimeForLevel >= LEVEL_DURATION_MS && getCurrentLevel() < LEVELS.length){
-                nextLevel();
+            if (System.currentTimeMillis() - startTimeForLevel >= LEVEL_DURATION_MS && getCurrentLevel() < LEVELS.length) {
+                if (counter != 0) {
+                    nextLevel();
+                } else {
+                    stopHopping();
+                    future.cancel(true);
+                    scheduledExecutorService.shutDownNow();
+                    listener.onGameEnded(score);
+                    field.getListener().
+                }
             }
         },LEVELS[currentLevel], LEVELS[currentLevel], TimeUnit.MILLISECONDS);
     }
@@ -39,7 +46,12 @@ class Mole {
         future.cancel(false);
     }
 
+    public void increaseCounterValue() {
+        counter++;
+    }
+
     private void nextLevel(){
+        counter=0;
         currentLevel++;
         future.cancel(false);
         startHopping();

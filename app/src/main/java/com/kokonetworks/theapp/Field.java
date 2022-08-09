@@ -75,6 +75,7 @@ class Field extends LinearLayout {
                 public void onClick(View view) {
                     boolean active = (boolean) view.getTag(ACTIVE_TAG_KEY);
                     if (active) {
+                        mole.increaseCounterValue();
                         score += mole.getCurrentLevel() * 2;
                         listener.onScoreUpdate(score);
                     } else {
