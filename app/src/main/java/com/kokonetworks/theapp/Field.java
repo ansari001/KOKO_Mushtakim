@@ -105,11 +105,21 @@ class Field extends LinearLayout {
 
     public void setActive(int index) {
         mainHandler.post(() -> {
-            resetCircles();
+            /*resetCircles();*/
             circles[index].setBackground(ContextCompat.getDrawable(getContext(), R.drawable.hole_active));
             circles[index].setTag(ACTIVE_TAG_KEY, true);
             currentCircle = index;
+            int random=Random().nextInt(field.totalCircles()+1);
+            if (index != random) {
+                setBlackOval(random);
+            }
         });
+    }
+
+    public void setBlackOval(int index) {
+        circles[index].setTag(ACTIVE_TAG_KEY, false);
+        circles[index].setBackground(ContextCompat.getDrawable(getContext(), R.drawable.black_oval));
+        currentCircle = index;
     }
 
     public Listener getListener() {
