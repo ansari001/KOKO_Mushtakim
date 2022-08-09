@@ -62,7 +62,7 @@ class Mole {
     }
 
     private int nextHole(){
-        int hole = new Random().nextInt(field.totalCircles()-1);
+        int hole = new Random().nextInt(field.totalCircles()+1);
         if(hole == field.getCurrentCircle()){
             return nextHole();
         }
