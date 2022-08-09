@@ -35,11 +35,29 @@ public class MainActivity extends AppCompatActivity {
             btnStart.setVisibility(View.GONE);
             tvScore.setVisibility(View.GONE);
             field.startGame();
+            startGameTimer();
         });
-
         field.setListener(listener);
     }
 
+    public void startGameTimer() {
+        new CountDownTimer(140000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                // Used for formatting digit to be in 2 digits only
+                NumberFormat f = new DecimalFormat("00");
+                long hour = (millisUntilFinished / 3600000) % 24;
+                long min = (millisUntilFinished / 60000) % 60;
+                long sec = (millisUntilFinished / 1000) % 60;
+                tvTimer.setText(f.format(hour) + ":" + f.format(min) + ":" + f.format(sec));
+            }
+
+            // When the task is over it will print 00:00:00 there
+            public void onFinish() {
+                tvTimer.setText("00:00:00");
+            }
+
+        }.start();
+    }
     private final Field.Listener listener = new Field.Listener() {
 
         @Override
