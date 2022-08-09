@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onGameEnded(int score) {
                 btnStart.setVisibility(View.VISIBLE);
-                tvScore.setVisibility(View.VISIBLE);
+                tvScore.setVisibility(View.GONE);
                 tvScore.setText(String.format(getString(R.string.your_score), score));
         }
 
